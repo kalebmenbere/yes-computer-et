@@ -66,7 +66,7 @@ export default function Footer() {
             <h3>Contact Us</h3>
             <div className="contact-item">
               <FaMapMarkerAlt />
-              <span>Bole Road, Mega Building, Addis Ababa, ET</span>
+              <span>Infront of Menahariya ,Holeta Town, Oromia, ET</span>
             </div>
             <div className="contact-item">
               <FaPhoneAlt />
