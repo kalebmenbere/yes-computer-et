@@ -7,232 +7,291 @@ import {
   FaNetworkWired, 
   FaHeadset, 
   FaShieldAlt,
-  FaDatabase,
-  FaMobileAlt,
-  FaCalendarCheck,
   FaCheckCircle,
   FaClock,
   FaDollarSign,
-  FaStar
+  FaStar,
+  FaCalendarCheck,
+  FaChevronRight,
+  FaPhoneAlt,
+  FaCogs,
+  FaUserFriends,
+  FaHandshake,
+  FaShippingFast,
+  FaTrophy
 } from "react-icons/fa";
 
 export default function Services() {
-  const [selectedService, setSelectedService] = useState(null);
+  const [activeTab, setActiveTab] = useState("repair");
 
-  const services = [
+  const serviceTabs = [
+    { id: "repair", label: "Computer Repair", icon: <FaTools /> },
+    { id: "networking", label: "Networking", icon: <FaNetworkWired /> },
+    { id: "support", label: "Tech Support", icon: <FaHeadset /> },
+    { id: "security", label: "Security", icon: <FaShieldAlt /> },
+  ];
+
+  const serviceFeatures = {
+    repair: [
+      { icon: <FaLaptop />, title: "Laptop Repair", desc: "Screen replacement, battery issues, keyboard repair" },
+      { icon: <FaCogs />, title: "Hardware Upgrade", desc: "RAM, SSD, graphics card installation" },
+      { icon: <FaPrint />, title: "Printer Services", desc: "Setup, maintenance, and troubleshooting" },
+      { icon: <FaShippingFast />, title: "Quick Service", desc: "Same-day service available" }
+    ],
+    networking: [
+      { icon: <FaNetworkWired />, title: "WiFi Setup", desc: "Home & office wireless network installation" },
+      { icon: <FaShieldAlt />, title: "Network Security", desc: "Firewall & VPN configuration" },
+      { icon: <FaUserFriends />, title: "Business Networks", desc: "Multi-device office network setup" },
+      { icon: <FaCogs />, title: "Router Configuration", desc: "Optimization for speed and coverage" }
+    ],
+    support: [
+      { icon: <FaHeadset />, title: "Remote Support", desc: "Quick assistance from anywhere" },
+      { icon: <FaUserFriends />, title: "On-site Support", desc: "Personalized in-person service" },
+      { icon: <FaCogs />, title: "Software Setup", desc: "Installation & configuration" },
+      { icon: <FaClock />, title: "24/7 Availability", desc: "Emergency support when you need it" }
+    ],
+    security: [
+      { icon: <FaShieldAlt />, title: "Virus Removal", desc: "Complete malware cleanup" },
+      { icon: <FaCogs />, title: "Data Backup", desc: "Secure cloud & local backup solutions" },
+      { icon: <FaNetworkWired />, title: "Firewall Setup", desc: "Advanced threat protection" },
+      { icon: <FaTrophy />, title: "Security Audit", desc: "Comprehensive system assessment" }
+    ]
+  };
+
+  const servicePackages = [
     {
-      id: 1,
-      icon: <FaLaptop />,
-      title: "Computer Repair & Maintenance",
-      description: "Comprehensive hardware and software solutions for all computer brands and models.",
-      details: [
-        "Motherboard & Component Repair",
-        "Virus & Malware Removal",
-        "Operating System Installation",
-        "Performance Optimization",
-        "Hardware Upgrades & Installation"
+      tier: "Basic",
+      price: "$79",
+      period: "one-time",
+      features: [
+        "Diagnostic Assessment",
+        "Virus/Malware Scan",
+        "Basic Software Troubleshooting",
+        "30-minute Response Time",
+        "Email Support"
       ],
-      price: "From $79",
-      time: "1-4 hours",
-      urgency: ["24/7 Emergency", "Same-day Service"],
+      popular: false
+    },
+    {
+      tier: "Professional",
+      price: "$149",
+      period: "one-time",
+      features: [
+        "Complete Diagnostic & Repair",
+        "Hardware Installation",
+        "Data Backup & Transfer",
+        "15-minute Response Time",
+        "Phone & Email Support",
+        "30-day Warranty"
+      ],
       popular: true
     },
     {
-      id: 2,
-      icon: <FaPrint />,
-      title: "Printer Services",
-      description: "Complete printer setup, repair, and maintenance for home and office.",
-      details: [
-        "Printer Installation & Setup",
-        "Network Printer Configuration",
-        "Cartridge Replacement",
-        "Print Quality Issues",
-        "Scanner & Copier Repair"
-      ],
-      price: "From $49",
-      time: "1-2 hours",
-      urgency: ["On-site Service"]
-    },
-    {
-      id: 3,
-      icon: <FaNetworkWired />,
-      title: "Networking Solutions",
-      description: "Professional network setup, troubleshooting, and security configuration.",
-      details: [
-        "WiFi Network Setup & Optimization",
-        "Router Configuration",
+      tier: "Enterprise",
+      price: "$299",
+      period: "monthly",
+      features: [
+        "Priority 24/7 Support",
+        "Unlimited Remote Assistance",
         "Network Security Setup",
-        "Ethernet Installation",
-        "Business Network Setup"
+        "5-minute Response Time",
+        "Dedicated Technician",
+        "90-day Warranty",
+        "Quarterly System Check"
       ],
-      price: "From $99",
-      time: "2-6 hours",
-      urgency: ["Business Solutions"]
-    },
-    {
-      id: 4,
-      icon: <FaHeadset />,
-      title: "Technical Support",
-      description: "Remote and on-site technical support for home and business users.",
-      details: [
-        "Software Troubleshooting",
-        "Email & Application Setup",
-        "Data Backup Solutions",
-        "Remote Desktop Support",
-        "IT Consultation"
-      ],
-      price: "From $39/hour",
-      time: "Flexible",
-      urgency: ["Remote Support Available"]
-    },
-    {
-      id: 5,
-      icon: <FaTools />,
-      title: "Hardware Installation",
-      description: "Professional installation of computer components and accessories.",
-      details: [
-        "RAM & SSD Installation",
-        "Graphics Card Installation",
-        "Power Supply Replacement",
-        "Laptop Screen Replacement",
-        "Cooling System Installation"
-      ],
-      price: "From $59",
-      time: "1-3 hours",
-      urgency: ["Warranty Included"]
-    },
-    {
-      id: 6,
-      icon: <FaShieldAlt />,
-      title: "Security & Data Services",
-      description: "Complete data protection and cybersecurity solutions.",
-      details: [
-        "Data Recovery Services",
-        "Antivirus Installation",
-        "Firewall Configuration",
-        "Data Backup Systems",
-        "Security Audits"
-      ],
-      price: "From $129",
-      time: "2-8 hours",
-      urgency: ["Emergency Recovery"]
+      popular: false
     }
   ];
 
-  const accessories = [
-    { name: "Wireless Keyboards & Mice", category: "Input Devices" },
-    { name: "Gaming Headsets & Speakers", category: "Audio" },
-    { name: "Webcams & Conference Cameras", category: "Video" },
-    { name: "Monitors & Display Units", category: "Displays" },
-    { name: "USB Hubs & Adapters", category: "Connectivity" },
-    { name: "External Storage Devices", category: "Storage" },
-    { name: "Surge Protectors & UPS", category: "Power" },
-    { name: "Laptop Bags & Accessories", category: "Portable" }
+  const expertiseAreas = [
+    { count: "500+", label: "Devices Repaired", icon: <FaLaptop />, color: "#3498db" },
+    { count: "99%", label: "Satisfaction Rate", icon: <FaStar />, color: "#f39c12" },
+    { count: "24/7", label: "Support Available", icon: <FaClock />, color: "#2ecc71" },
+    { count: "30-min", label: "Avg Response Time", icon: <FaShippingFast />, color: "#9b59b6" }
   ];
 
-  const testimonials = [
+  const processSteps = [
     {
-      name: "Sarah Johnson",
-      company: "Small Business Owner",
-      text: "Yes Computer ET fixed our office network in just 2 hours! Professional and reliable service.",
-      rating: 5
+      number: "01",
+      title: "Book Appointment",
+      description: "Schedule online or call for immediate assistance",
+      icon: <FaCalendarCheck />
     },
     {
-      name: "Mike Chen",
-      company: "Home Office User",
-      text: "Great printer setup service. They explained everything clearly and the price was fair.",
-      rating: 5
+      number: "02",
+      title: "Free Diagnosis",
+      description: "We assess the issue and provide transparent pricing",
+      icon: <FaCogs />
     },
     {
-      name: "Jessica Williams",
-      company: "Student",
-      text: "Emergency laptop repair saved my semester. Fast service and friendly technicians!",
-      rating: 5
+      number: "03",
+      title: "Expert Service",
+      description: "Our certified technicians fix your device efficiently",
+      icon: <FaTools />
+    },
+    {
+      number: "04",
+      title: "Quality Assurance",
+      description: "Thorough testing and warranty included",
+      icon: <FaCheckCircle />
     }
   ];
 
   return (
-    <div className="services-page">
-      {/* Hero Section */}
-      <section className="services-hero">
-        <div className="hero-content">
-          <h1>Professional Tech Services</h1>
-          <p className="hero-subtitle">
-            Comprehensive computer maintenance, repair, and support services for homes and businesses.
-            Trusted by hundreds of satisfied customers.
+    <div className="modern-services-page">
+      {/* Hero Banner */}
+      <section className="modern-hero-banner">
+        <div className="modern-hero-content">
+          <div className="modern-hero-badge">
+            <FaStar /> Trusted Tech Partner Since 2015
+          </div>
+          <h1 className="modern-hero-title">
+            Expert Computer Repair & <span className="highlight">IT Support</span>
+          </h1>
+          <p className="modern-hero-description">
+            Professional solutions for homes and businesses. Fast, reliable, and affordable tech services 
+            with certified technicians and guaranteed satisfaction.
           </p>
-          <div className="hero-stats">
-            <div className="stat">
-              <span className="stat-number">24/7</span>
-              <span className="stat-label">Support</span>
-            </div>
-            <div className="stat">
-              <span className="stat-number">30-min</span>
-              <span className="stat-label">Response Time</span>
-            </div>
-            <div className="stat">
-              <span className="stat-number">6-month</span>
-              <span className="stat-label">Warranty</span>
-            </div>
+          <div className="modern-hero-cta">
+            <a href="tel:+1234567890" className="modern-cta-primary">
+              <FaPhoneAlt /> Call Now: (123) 456-7890
+            </a>
+            <button className="modern-cta-secondary">
+              <FaCalendarCheck /> Book Service Online
+            </button>
           </div>
         </div>
       </section>
 
-      {/* Services Grid */}
-      <section className="services-section">
-        <div className="section-header">
-          <h2>Our Core Services</h2>
-          <p>Professional solutions for all your tech needs</p>
+      {/* Expertise Stats */}
+      <section className="modern-expertise-section">
+        <div className="modern-expertise-grid">
+          {expertiseAreas.map((area, index) => (
+            <div key={index} className="modern-expertise-card">
+              <div 
+                className="modern-expertise-icon"
+                style={{ backgroundColor: `${area.color}15`, color: area.color }}
+              >
+                {area.icon}
+              </div>
+              <div className="modern-expertise-content">
+                <h3 className="modern-expertise-count">{area.count}</h3>
+                <p className="modern-expertise-label">{area.label}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Interactive Services */}
+      <section className="modern-services-section">
+        <div className="modern-section-header">
+          <h2 className="modern-section-title">Our Specialized Services</h2>
+          <p className="modern-section-subtitle">
+            Comprehensive tech solutions tailored to your needs
+          </p>
         </div>
 
-        <div className="services-grid">
-          {services.map(service => (
-            <div 
-              key={service.id} 
-              className={`service-card ${selectedService === service.id ? 'expanded' : ''}`}
-              onClick={() => setSelectedService(selectedService === service.id ? null : service.id)}
+        <div className="modern-services-tabs">
+          {serviceTabs.map((tab) => (
+            <button
+              key={tab.id}
+              className={`modern-tab ${activeTab === tab.id ? 'active' : ''}`}
+              onClick={() => setActiveTab(tab.id)}
             >
-              {service.popular && <div className="popular-badge">Most Popular</div>}
-              
-              <div className="service-icon">
-                {service.icon}
+              <span className="modern-tab-icon">{tab.icon}</span>
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="modern-services-features">
+          {serviceFeatures[activeTab].map((feature, index) => (
+            <div key={index} className="modern-feature-card">
+              <div className="modern-feature-icon">
+                {feature.icon}
               </div>
-              
-              <h3>{service.title}</h3>
-              <p className="service-description">{service.description}</p>
-              
-              <div className="service-meta">
-                <div className="meta-item">
-                  <FaDollarSign />
-                  <span>{service.price}</span>
+              <div className="modern-feature-content">
+                <h4 className="modern-feature-title">{feature.title}</h4>
+                <p className="modern-feature-desc">{feature.desc}</p>
+                <button className="modern-feature-btn">
+                  Learn More <FaChevronRight />
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Service Packages */}
+      <section className="modern-packages-section">
+        <div className="modern-section-header">
+          <h2 className="modern-section-title">Service Packages</h2>
+          <p className="modern-section-subtitle">
+            Choose the perfect plan for your tech needs
+          </p>
+        </div>
+
+        <div className="modern-packages-grid">
+          {servicePackages.map((pkg, index) => (
+            <div 
+              key={index} 
+              className={`modern-package-card ${pkg.popular ? 'popular' : ''}`}
+            >
+              {pkg.popular && (
+                <div className="modern-popular-badge">
+                  Most Popular
                 </div>
-                <div className="meta-item">
-                  <FaClock />
-                  <span>{service.time}</span>
+              )}
+              
+              <div className="modern-package-header">
+                <h3 className="modern-package-tier">{pkg.tier}</h3>
+                <div className="modern-package-price">
+                  <span className="price">{pkg.price}</span>
+                  <span className="period">/{pkg.period}</span>
                 </div>
               </div>
 
-              <div className="urgency-tags">
-                {service.urgency.map((tag, index) => (
-                  <span key={index} className="urgency-tag">{tag}</span>
+              <ul className="modern-package-features">
+                {pkg.features.map((feature, idx) => (
+                  <li key={idx} className="modern-package-feature">
+                    <FaCheckCircle className="feature-check" />
+                    {feature}
+                  </li>
                 ))}
-              </div>
+              </ul>
 
-              {/* Expanded Details */}
-              {selectedService === service.id && (
-                <div className="service-details">
-                  <h4>Service Includes:</h4>
-                  <ul>
-                    {service.details.map((detail, index) => (
-                      <li key={index}>
-                        <FaCheckCircle className="check-icon" />
-                        {detail}
-                      </li>
-                    ))}
-                  </ul>
-                  <button className="book-service-btn">
-                    <FaCalendarCheck /> Book This Service
-                  </button>
+              <button className="modern-package-btn">
+                Choose Plan
+              </button>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Process Timeline */}
+      <section className="modern-process-section">
+        <div className="modern-section-header">
+          <h2 className="modern-section-title">How We Work</h2>
+          <p className="modern-section-subtitle">
+            Simple, transparent, and efficient service process
+          </p>
+        </div>
+
+        <div className="modern-process-timeline">
+          {processSteps.map((step, index) => (
+            <div key={index} className="modern-process-step">
+              <div className="modern-step-number">{step.number}</div>
+              <div className="modern-step-icon">
+                {step.icon}
+              </div>
+              <div className="modern-step-content">
+                <h3 className="modern-step-title">{step.title}</h3>
+                <p className="modern-step-desc">{step.description}</p>
+              </div>
+              {index < processSteps.length - 1 && (
+                <div className="modern-step-connector">
+                  <FaChevronRight />
                 </div>
               )}
             </div>
@@ -240,95 +299,26 @@ export default function Services() {
         </div>
       </section>
 
-      {/* Accessories Section */}
-      <section className="accessories-section">
-        <div className="section-header">
-          <h2>Accessories & Parts</h2>
-          <p>Quality accessories and replacement parts for all your tech needs</p>
-        </div>
-
-        <div className="accessories-grid">
-          {accessories.map((item, index) => (
-            <div key={index} className="accessory-card">
-              <h3>{item.name}</h3>
-              <span className="accessory-category">{item.category}</span>
-              <button className="browse-btn">Browse Products</button>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Process Section */}
-      <section className="process-section">
-        <div className="section-header">
-          <h2>How It Works</h2>
-          <p>Simple, transparent process for all our services</p>
-        </div>
-
-        <div className="process-steps">
-          <div className="process-step">
-            <div className="step-number">1</div>
-            <h3>Contact Us</h3>
-            <p>Call or book online to describe your issue</p>
-          </div>
-          
-          <div className="process-step">
-            <div className="step-number">2</div>
-            <h3>Diagnosis</h3>
-            <p>We assess the problem and provide a quote</p>
-          </div>
-          
-          <div className="process-step">
-            <div className="step-number">3</div>
-            <h3>Service</h3>
-            <p>Our certified technicians fix your device</p>
-          </div>
-          
-          <div className="process-step">
-            <div className="step-number">4</div>
-            <h3>Delivery</h3>
-            <p>Get your device back with warranty</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="testimonials-section">
-        <div className="section-header">
-          <h2>What Our Customers Say</h2>
-          <p>Trusted by businesses and individuals alike</p>
-        </div>
-
-        <div className="testimonials-grid">
-          {testimonials.map((testimonial, index) => (
-            <div key={index} className="testimonial-card">
-              <div className="testimonial-rating">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <FaStar key={i} className="star-icon" />
-                ))}
-              </div>
-              <p className="testimonial-text">"{testimonial.text}"</p>
-              <div className="testimonial-author">
-                <strong>{testimonial.name}</strong>
-                <span>{testimonial.company}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* CTA Section */}
-      <section className="services-cta">
-        <div className="cta-content">
-          <h2>Need Immediate Tech Support?</h2>
-          <p>Call us now for same-day emergency service or schedule an appointment</p>
-          <div className="cta-buttons">
-            <a href="tel:+1234567890" className="cta-button primary">
-              <FaHeadset /> Call Now: (123) 456-7890
-            </a>
-            <button className="cta-button secondary">
-              <FaCalendarCheck /> Schedule Online
-            </button>
+      <section className="modern-cta-section">
+        <div className="modern-cta-card">
+          <div className="modern-cta-content">
+            <h2 className="modern-cta-title">Ready to Fix Your Tech Issues?</h2>
+            <p className="modern-cta-subtitle">
+              Get professional help today. We offer free diagnostics and transparent pricing.
+            </p>
+            <div className="modern-cta-actions">
+              <a href="tel:+1234567890" className="modern-cta-action-primary">
+                <FaPhoneAlt /> Call for Immediate Help
+              </a>
+              <button className="modern-cta-action-secondary">
+                <FaCalendarCheck /> Schedule Online
+              </button>
+            </div>
+            <div className="modern-cta-guarantee">
+              <FaHandshake />
+              <span>100% Satisfaction Guaranteed • 6-Month Warranty</span>
+            </div>
           </div>
         </div>
       </section>
