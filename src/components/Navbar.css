@@ -1,0 +1,226 @@
+:root {
+    --nav-height: 80px;
+    --primary-blue: #2563eb;
+    --dark-bg: #0f172a;
+    --glass-white: rgba(255, 255, 255, 0.8);
+  }
+  
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--nav-height);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0 5%;
+  }
+  
+  /* Background change on scroll */
+  .navbar-scrolled {
+    height: 70px;
+    background: var(--glass-white);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  }
+  
+  .navbar-container {
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Logo Styling */
+  .navbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--dark-bg);
+  }
+  
+  .logo-icon {
+    font-size: 1.8rem;
+    color: var(--primary-blue);
+  }
+  
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+  
+  .logo-accent {
+    font-weight: 800;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    color: var(--primary-blue);
+  }
+  
+  .logo-main {
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+  }
+  
+  .logo-country {
+    position: absolute;
+    font-size: 0.6rem;
+    font-weight: 900;
+    background: var(--dark-bg);
+    color: white;
+    padding: 2px 4px;
+    border-radius: 4px;
+    margin-left: 105px;
+    margin-top: -12px;
+  }
+  
+  /* Desktop Menu */
+  .navbar-menu {
+    display: flex;
+    gap: 40px;
+  }
+  
+  .nav-link {
+    position: relative;
+    text-decoration: none;
+    color: var(--dark-bg);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 8px 0;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-link:hover {
+    color: var(--primary-blue);
+  }
+  
+  .link-indicator {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-blue);
+    transition: width 0.3s ease;
+  }
+  
+  .nav-link:hover .link-indicator,
+  .nav-link.active .link-indicator {
+    width: 100%;
+  }
+  
+  /* CTA & Actions */
+  .navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .nav-cta-button {
+    background: var(--dark-bg);
+    color: white;
+    padding: 10px 24px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    border: 2px solid var(--dark-bg);
+  }
+  
+  .nav-cta-button:hover {
+    background: transparent;
+    color: var(--dark-bg);
+    transform: translateY(-2px);
+  }
+  
+  /* Mobile Toggle */
+  .mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--dark-bg);
+    cursor: pointer;
+    z-index: 1100;
+  }
+  
+  /* Mobile Overlay */
+  .mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(100%);
+    transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    z-index: 1050;
+  }
+  
+  .mobile-overlay.open {
+    transform: translateX(0);
+  }
+  
+  .mobile-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+  
+  .mobile-nav-link {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--dark-bg);
+    text-decoration: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+  }
+  
+  .mobile-overlay.open .mobile-nav-link {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .mobile-cta-btn {
+    margin-top: 20px;
+    background: var(--primary-blue);
+    color: white;
+    padding: 15px 40px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.2rem;
+  }
+  
+  /* Responsiveness */
+  @media (max-width: 992px) {
+    .navbar-menu {
+      display: none;
+    }
+    
+    .mobile-toggle {
+      display: block;
+    }
+  
+    .nav-cta-button {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .logo-text {
+      display: none; /* Icon only on very small screens */
+    }
+  }
