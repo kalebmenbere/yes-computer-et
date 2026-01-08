@@ -8,7 +8,6 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
-  // Handle scroll effect for glassmorphism background
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
@@ -16,6 +15,11 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleNavClick = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setIsMenuOpen(false);
+  };
 
   const navItems = [
     { path: "/", label: "Home" },
@@ -25,11 +29,15 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className={`navbar ${scrolled ? "navbar-scrolled" : ""}`}>
+    <nav className={`navbar-component ${scrolled ? "navbar-scrolled" : ""}`}>
       <div className="navbar-container">
         {/* Logo */}
         <div className="navbar-brand">
-          <Link to="/" className="navbar-logo">
+          <Link 
+            to="/" 
+            className="navbar-logo"
+            onClick={handleNavClick}
+          >
             <FaLaptopCode className="logo-icon" />
             <div className="logo-text">
               <span className="logo-accent">YES</span>
@@ -45,7 +53,8 @@ export default function Navbar() {
             <Link
               key={item.path}
               to={item.path}
-              className={`nav-link ${location.pathname === item.path ? 'active' : ''}`}
+              className={`navbar-link ${location.pathname === item.path ? 'active' : ''}`}
+              onClick={handleNavClick}
             >
               {item.label}
               <span className="link-indicator"></span>
@@ -55,7 +64,11 @@ export default function Navbar() {
 
         {/* Call to Action Button */}
         <div className="navbar-actions">
-          <Link to="/contact" className="nav-cta-button">
+          <Link 
+            to="/contact" 
+            className="navbar-cta-button"
+            onClick={handleNavClick}
+          >
             Get Support
           </Link>
           
@@ -79,15 +92,15 @@ export default function Navbar() {
               to={item.path}
               className={`mobile-nav-link ${location.pathname === item.path ? 'active' : ''}`}
               style={{ transitionDelay: `${index * 0.1}s` }}
-              onClick={() => setIsMenuOpen(false)}
+              onClick={handleNavClick}
             >
               {item.label}
             </Link>
           ))}
           <Link 
             to="/contact" 
-            className="mobile-cta-btn" 
-            onClick={() => setIsMenuOpen(false)}
+            className="mobile-cta-btn"
+            onClick={handleNavClick}
           >
             Book Now
           </Link>

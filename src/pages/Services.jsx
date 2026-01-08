@@ -18,7 +18,8 @@ import {
   FaUserFriends,
   FaHandshake,
   FaShippingFast,
-  FaTrophy
+  FaTrophy,
+  FaArrowRight
 } from "react-icons/fa";
 
 export default function Services() {
@@ -112,51 +113,55 @@ export default function Services() {
 
   const processSteps = [
     {
-      number: "01",
+      number: "1",
       title: "Book Appointment",
       description: "Schedule online or call for immediate assistance",
-      icon: <FaCalendarCheck />
+      icon: <FaCalendarCheck />,
+      color: "#3498db"
     },
     {
-      number: "02",
+      number: "2",
       title: "Free Diagnosis",
       description: "We assess the issue and provide transparent pricing",
-      icon: <FaCogs />
+      icon: <FaCogs />,
+      color: "#2ecc71"
     },
     {
-      number: "03",
+      number: "3",
       title: "Expert Service",
       description: "Our certified technicians fix your device efficiently",
-      icon: <FaTools />
+      icon: <FaTools />,
+      color: "#e74c3c"
     },
     {
-      number: "04",
+      number: "4",
       title: "Quality Assurance",
       description: "Thorough testing and warranty included",
-      icon: <FaCheckCircle />
+      icon: <FaCheckCircle />,
+      color: "#9b59b6"
     }
   ];
 
   return (
-    <div className="modern-services-page">
+    <div className="services-page">
       {/* Hero Banner */}
-      <section className="modern-hero-banner">
-        <div className="modern-hero-content">
-          <div className="modern-hero-badge">
+      <section className="services-hero">
+        <div className="hero-content">
+          <div className="hero-badge">
             <FaStar /> Trusted Tech Partner Since 2015
           </div>
-          <h1 className="modern-hero-title">
+          <h1 className="hero-title">
             Expert Computer Repair & <span className="highlight">IT Support</span>
           </h1>
-          <p className="modern-hero-description">
+          <p className="hero-description">
             Professional solutions for homes and businesses. Fast, reliable, and affordable tech services 
             with certified technicians and guaranteed satisfaction.
           </p>
-          <div className="modern-hero-cta">
-            <a href="tel:+1234567890" className="modern-cta-primary">
-              <FaPhoneAlt /> Call Now: (123) 456-7890
+          <div className="hero-cta">
+            <a href="tel:+251911234567" className="cta-primary">
+              <FaPhoneAlt /> Call Now: +251 91 123 4567
             </a>
-            <button className="modern-cta-secondary">
+            <button className="cta-secondary">
               <FaCalendarCheck /> Book Service Online
             </button>
           </div>
@@ -164,19 +169,19 @@ export default function Services() {
       </section>
 
       {/* Expertise Stats */}
-      <section className="modern-expertise-section">
-        <div className="modern-expertise-grid">
+      <section className="expertise-section">
+        <div className="expertise-grid">
           {expertiseAreas.map((area, index) => (
-            <div key={index} className="modern-expertise-card">
+            <div key={index} className="expertise-card">
               <div 
-                className="modern-expertise-icon"
+                className="expertise-icon"
                 style={{ backgroundColor: `${area.color}15`, color: area.color }}
               >
                 {area.icon}
               </div>
-              <div className="modern-expertise-content">
-                <h3 className="modern-expertise-count">{area.count}</h3>
-                <p className="modern-expertise-label">{area.label}</p>
+              <div className="expertise-content">
+                <h3 className="expertise-count">{area.count}</h3>
+                <p className="expertise-label">{area.label}</p>
               </div>
             </div>
           ))}
@@ -184,37 +189,37 @@ export default function Services() {
       </section>
 
       {/* Interactive Services */}
-      <section className="modern-services-section">
-        <div className="modern-section-header">
-          <h2 className="modern-section-title">Our Specialized Services</h2>
-          <p className="modern-section-subtitle">
+      <section className="services-section">
+        <div className="section-header">
+          <h2 className="section-title">Our Specialized Services</h2>
+          <p className="section-subtitle">
             Comprehensive tech solutions tailored to your needs
           </p>
         </div>
 
-        <div className="modern-services-tabs">
+        <div className="services-tabs">
           {serviceTabs.map((tab) => (
             <button
               key={tab.id}
-              className={`modern-tab ${activeTab === tab.id ? 'active' : ''}`}
+              className={`service-tab ${activeTab === tab.id ? 'active' : ''}`}
               onClick={() => setActiveTab(tab.id)}
             >
-              <span className="modern-tab-icon">{tab.icon}</span>
+              <span className="tab-icon">{tab.icon}</span>
               {tab.label}
             </button>
           ))}
         </div>
 
-        <div className="modern-services-features">
+        <div className="services-features">
           {serviceFeatures[activeTab].map((feature, index) => (
-            <div key={index} className="modern-feature-card">
-              <div className="modern-feature-icon">
+            <div key={index} className="feature-card">
+              <div className="feature-icon">
                 {feature.icon}
               </div>
-              <div className="modern-feature-content">
-                <h4 className="modern-feature-title">{feature.title}</h4>
-                <p className="modern-feature-desc">{feature.desc}</p>
-                <button className="modern-feature-btn">
+              <div className="feature-content">
+                <h4 className="feature-title">{feature.title}</h4>
+                <p className="feature-desc">{feature.desc}</p>
+                <button className="feature-btn">
                   Learn More <FaChevronRight />
                 </button>
               </div>
@@ -224,44 +229,44 @@ export default function Services() {
       </section>
 
       {/* Service Packages */}
-      <section className="modern-packages-section">
-        <div className="modern-section-header">
-          <h2 className="modern-section-title">Service Packages</h2>
-          <p className="modern-section-subtitle">
+      <section className="packages-section">
+        <div className="section-header">
+          <h2 className="section-title">Service Packages</h2>
+          <p className="section-subtitle">
             Choose the perfect plan for your tech needs
           </p>
         </div>
 
-        <div className="modern-packages-grid">
+        <div className="packages-grid">
           {servicePackages.map((pkg, index) => (
             <div 
               key={index} 
-              className={`modern-package-card ${pkg.popular ? 'popular' : ''}`}
+              className={`package-card ${pkg.popular ? 'popular' : ''}`}
             >
               {pkg.popular && (
-                <div className="modern-popular-badge">
+                <div className="popular-badge">
                   Most Popular
                 </div>
               )}
               
-              <div className="modern-package-header">
-                <h3 className="modern-package-tier">{pkg.tier}</h3>
-                <div className="modern-package-price">
+              <div className="package-header">
+                <h3 className="package-tier">{pkg.tier}</h3>
+                <div className="package-price">
                   <span className="price">{pkg.price}</span>
                   <span className="period">/{pkg.period}</span>
                 </div>
               </div>
 
-              <ul className="modern-package-features">
+              <ul className="package-features">
                 {pkg.features.map((feature, idx) => (
-                  <li key={idx} className="modern-package-feature">
+                  <li key={idx} className="package-feature">
                     <FaCheckCircle className="feature-check" />
                     {feature}
                   </li>
                 ))}
               </ul>
 
-              <button className="modern-package-btn">
+              <button className="package-btn">
                 Choose Plan
               </button>
             </div>
@@ -269,29 +274,34 @@ export default function Services() {
         </div>
       </section>
 
-      {/* Process Timeline */}
-      <section className="modern-process-section">
-        <div className="modern-section-header">
-          <h2 className="modern-section-title">How We Work</h2>
-          <p className="modern-section-subtitle">
+      {/* Fixed Process Timeline */}
+      <section className="process-section">
+        <div className="section-header">
+          <h2 className="section-title">How We Work</h2>
+          <p className="section-subtitle">
             Simple, transparent, and efficient service process
           </p>
         </div>
 
-        <div className="modern-process-timeline">
+        <div className="process-timeline">
           {processSteps.map((step, index) => (
-            <div key={index} className="modern-process-step">
-              <div className="modern-step-number">{step.number}</div>
-              <div className="modern-step-icon">
-                {step.icon}
+            <div key={index} className="process-step">
+              <div className="step-circle" style={{ borderColor: step.color }}>
+                <span className="step-number" style={{ color: step.color }}>
+                  {step.number}
+                </span>
+                <div className="step-icon" style={{ color: step.color }}>
+                  {step.icon}
+                </div>
               </div>
-              <div className="modern-step-content">
-                <h3 className="modern-step-title">{step.title}</h3>
-                <p className="modern-step-desc">{step.description}</p>
+              <div className="step-content">
+                <h3 className="step-title">{step.title}</h3>
+                <p className="step-desc">{step.description}</p>
               </div>
               {index < processSteps.length - 1 && (
-                <div className="modern-step-connector">
-                  <FaChevronRight />
+                <div className="step-connector">
+                  <div className="connector-line" style={{ backgroundColor: step.color }}></div>
+                  <FaArrowRight className="connector-arrow" style={{ color: step.color }} />
                 </div>
               )}
             </div>
@@ -300,22 +310,22 @@ export default function Services() {
       </section>
 
       {/* CTA Section */}
-      <section className="modern-cta-section">
-        <div className="modern-cta-card">
-          <div className="modern-cta-content">
-            <h2 className="modern-cta-title">Ready to Fix Your Tech Issues?</h2>
-            <p className="modern-cta-subtitle">
+      <section className="cta-section">
+        <div className="cta-card">
+          <div className="cta-content">
+            <h2 className="cta-title">Ready to Fix Your Tech Issues?</h2>
+            <p className="cta-subtitle">
               Get professional help today. We offer free diagnostics and transparent pricing.
             </p>
-            <div className="modern-cta-actions">
-              <a href="tel:+1234567890" className="modern-cta-action-primary">
+            <div className="cta-actions">
+              <a href="tel:+251911234567" className="cta-action-primary">
                 <FaPhoneAlt /> Call for Immediate Help
               </a>
-              <button className="modern-cta-action-secondary">
+              <button className="cta-action-secondary">
                 <FaCalendarCheck /> Schedule Online
               </button>
             </div>
-            <div className="modern-cta-guarantee">
+            <div className="cta-guarantee">
               <FaHandshake />
               <span>100% Satisfaction Guaranteed • 6-Month Warranty</span>
             </div>
